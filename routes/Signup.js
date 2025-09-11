@@ -1,8 +1,8 @@
-express = require("express")
+const express = require("express")
+const POST_SIGNUP_CONTROLLER = require("../controller/SignupController")
+
 const router = express.Router()
 
-router.post("/", (req, res) => {
-     res.status(200).send("signup/POST code logic")
-})
+router.post("/", POST_SIGNUP_CONTROLLER)
 
 module.exports = router
