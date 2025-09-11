@@ -2,14 +2,15 @@ connectToDB = require("./connection")
 
 async function userSignup(username, password) {
      try {
-          db = await connectToDB()
+          const db = await connectToDB()
           const collection = db.collection("users")
+          const users = await collection.findOne({ username: username })
 
-          const query = { username: username, password: password}
-
-          const users = await collection.find(query)
-          print("query success")
-
+          if (users == null) {
+               const result = await collection.insertOne({ username: username, password: password })
+               return true
+          }
+          return false
 
      }  catch(err) {
           console.error(err)
