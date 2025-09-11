@@ -1,3 +1,5 @@
+const connectToDB = require("./connection")
+
 connectToDB = require("./connection")
 
 async function userSignup(username, password) {
@@ -32,7 +34,41 @@ async function userLogin(username, password) {
      }
 }
 
+async function getNoteList(username) {
+     try {
+          const db = await connectToDB()
+          const collection = db.collection("notebook")
+     
+          const cursor = collection.find({ username: username })
+          noteList = await cursor.toArray()
+
+          return noteList
+     }  catch(err) {
+          console.error(err)
+     }
+}
+
+async function getNoteByName(username, noteName) {
+     try {
+          const db = connectToDB()
+          const collection = db.collection("notebook")
+
+          const note = collection.findOne({ username: username, noteName: noteName })
+          return note
+
+     }  catch(err) {
+          console.error(err)
+     }
+}
+
+async function postNote() {
+     return false
+}
+
 module.exports = {
      userSignup,
-     userLogin
+     userLogin,
+     getNoteList,
+     getNoteByName,
+     postNote
 }
