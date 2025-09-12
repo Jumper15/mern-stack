@@ -1,7 +1,5 @@
 const connectToDB = require("./connection")
 
-connectToDB = require("./connection")
-
 async function userSignup(username, password) {
      try {
           const db = await connectToDB()
